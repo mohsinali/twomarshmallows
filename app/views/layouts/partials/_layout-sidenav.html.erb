@@ -1,0 +1,55 @@
+<!-- Layout sidenav -->
+<div id="layout-sidenav" class="<% if local_assigns[:horizontal] == true %>layout-sidenav-horizontal sidenav-horizontal container-p-x flex-grow-0<% else %>layout-sidenav sidenav-vertical<% end %> sidenav bg-danger">
+
+  <!-- Inner -->
+  <ul class="sidenav-inner<% if local_assigns[:horizontal] != true %> py-1<% end %>">
+    <li class="sidenav-block my-1">
+      <div class="media align-items-center">        
+        <%= image_tag '1-small.png', class: 'd-block ui-w-50 rounded-circle' %>
+        <div class="media-body pl-3">
+          <h5 class="sidenav-text mb-1"><%= current_user.name %></h5>
+          <div class="small">
+            <a href="javascript:void(0)" class="sidenav-link">
+              <strong class="sidenav-text">5</strong> new messages</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="sidenav-divider mt-0"></li>
+
+    <% if user_signed_in? %>
+      <li class="sidenav-item<%= current_page?(root_path) ? ' active' : '' %>">
+        <%= link_to root_path, class: "sidenav-link" do %>
+          <i class="sidenav-icon ion ion-ios-desktop"></i><div>Dashboard</div>
+        <% end %>
+      </li>
+      <li class="sidenav-item<%= current_page?(contacts_path) ? ' active' : '' %>">
+        <%= link_to contacts_path, class: "sidenav-link" do %>
+          <i class="sidenav-icon ion ion-ios-contacts"></i><div>Contacts</div>
+        <% end %>
+      </li>
+      
+      <% if current_user.has_role?(:admin) %>
+        <li class="sidenav-item<%= current_page?(agents_path) ? ' active' : '' %>">
+          <%= link_to agents_path, class: "sidenav-link" do %>
+            <i class="sidenav-icon ion ion-ios-contact"></i><div>Agents</div>
+          <% end %>
+        </li>
+      <% end %>      
+    
+      <li class="sidenav-item">
+        <%= link_to destroy_user_session_path, class: "sidenav-link", method: :delete do %>
+          <i class="sidenav-icon ion ion-ios-power"></i><div>Sign Out</div>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="sidenav-item">
+        <%= link_to new_user_session_path, class: "sidenav-link" do %>
+          <i class="sidenav-icon ion ion-ios-power"></i><div>Sign In</div>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+</div>
+<!-- / Layout sidenav -->

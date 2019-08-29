@@ -1,0 +1,28 @@
+- if @user.errors.any?
+  .alert.alert-danger
+    h3
+      = pluralize(@user.errors.count, "error")
+      |  prohibited this meeting from being saved:
+ 
+    ul
+      - @user.errors.full_messages.each do |msg|
+        li = msg
+
+.card.mb-4
+  .card-body
+    = form_for @user, url: "/admin/#{@user.slug}", method: :put do |f|
+      .form-group
+        = f.label :name, class: 'form-label'
+        = f.text_field :name, class: 'form-control'
+
+      .form-group
+        = f.label :email, class: 'form-label'
+        = f.text_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :password, class: 'form-label'
+        = f.text_field :password, class: 'form-control'
+
+      = f.submit 'Submit', class: 'btn btn-default btn-create-user'
+      |        
+      = link_to 'Cancel', admin_index_path, class: 'btn btn-danger btn-create-user'

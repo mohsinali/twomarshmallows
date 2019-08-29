@@ -1,0 +1,27 @@
+h4.d-flex.justify-content-between.align-items-center
+  span.text-muted.font-weight-light Users
+  = link_to new_admin_path, class: 'btn btn-primary rounded-pill d-block' do
+    span.ion.ion-md-add
+    | &nbsp; Create User
+  
+hr.border-light.container-m--x.mt-0.mb-4/
+
+.card  
+  table.table.card-table.table-hover
+    thead.thead-light
+      tr
+        th #
+        th Name
+        th Email
+        th Room
+        th   
+    tbody
+      - @users.each do |user|
+        tr
+          td = user.id
+          td = user.name
+          td = user.email
+          td = user.slug
+          td
+            = link_to edit_admin_path(user), class: 'tooltip-participants', title: 'Edit Meeting' do
+              i.lnr.lnr-pencil

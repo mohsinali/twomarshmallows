@@ -1,0 +1,31 @@
+h3 Meeting Invitation
+
+p You have been invited by <strong>#{@user.name}</strong> for meeting <strong>#{@meeting.title}</strong>.
+
+p
+  strong Schedule
+  br
+  table
+    tr
+      td
+        | Start Time
+      td
+        = @meeting.start_time.strftime("%d/%m/%Y - %I:%M %p")
+
+    tr
+      td
+        | End Time
+      td
+        = @meeting.end_time.strftime("%d/%m/%Y - %I:%M %p")
+
+    tr
+      td
+        | Meeting Pin
+      td
+        = @meeting.meeting_number
+
+p You can join meeting by entering your pin <a href="#{root_url}guest">here</a>.
+
+p Team Meet Attribe
+
+

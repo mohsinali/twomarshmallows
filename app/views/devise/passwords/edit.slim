@@ -1,0 +1,39 @@
+- content_for :styles do  
+  = stylesheet_link_tag 'pages/authentication.css', media: 'all'
+  = stylesheet_link_tag 'ladda/ladda.css', media: 'all'
+
+- content_for :scripts do
+  / <!-- Dependencies -->  
+  = javascript_include_tag 'spin/spin.js'
+  = javascript_include_tag 'ladda/ladda.js'
+
+.authentication-wrapper.authentication-2.ui-bg-cover.ui-bg-overlay-container.px-4 style=("background-image: url('/img/5.jpg');") 
+  .ui-bg-overlay.bg-dark.opacity-25
+  .authentication-inner.py-5
+    .card
+      .p-4.p-sm-5
+        /! Logo
+        .d-flex.justify-content-center.align-items-center.pb-2.mb-4
+          img width="100px" src="/assets/logo.jpg"
+        /! / Logo
+        h3.text-center.text-muted.font-weight-normal.mb-4 Change your password
+        - flash.each do |key, value|
+          = content_tag :div, value, class: "alert alert-info"
+
+
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+          = render "devise/shared/error_messages", resource: resource
+          = f.hidden_field :reset_password_token
+
+          .form-group
+            = f.label :password, "New password"            
+            - if @minimum_password_length              
+            = f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'form-control'
+            small.form-text.text-muted
+              | #{@minimum_password_length} characters minimum
+
+          .form-group
+            = f.label :password_confirmation, "Confirm new password"
+            = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+          
+          = f.submit "Change my password", class: 'btn btn-primary ladda-button spinner-button', "data-style" => "expand-right"
