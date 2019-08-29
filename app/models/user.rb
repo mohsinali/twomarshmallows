@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   rolify
-  paginates_per 10
 
-  ## Associations  
+  ## Associations
+  has_one :teacher_profile, class_name: "TeacherProfile", foreign_key: "user_id", dependent: :destroy
+  # has_one :student_profile, class_name: "StudentProfile", foreign_key: "user_id"
 
 
   # Include default devise modules. Others available are:
@@ -16,6 +17,19 @@ class User < ApplicationRecord
 
   ## Hooks
 
+  def profile
+    if self.has_role?(:teacher)
+      self.teacher_profile
+    elsif self.has_role?(:student)
+    end
+  end
+
+  def create_profile params
+    if self.has_role?(:teacher)
+      self.build_teacher_profile(params).save
+    elsif self.has_role?(:student)
+    end
+  end
 
   def get_jwt_token
     payload = { data: {user: {id: self.id, email: self.email}} }

@@ -41,19 +41,21 @@ class Api::V1::UsersController < Api::V1::ApiController
   ## Params:      @email  
   #####################################################################
   def signup
-    email     = params[:email]
+    email     = params[:user][:email]
     password  = Devise.friendly_token.first(8)
     @user     = User.new(email: email, password: password)
 
-    if params[:email].blank?
+    if params[:user][:email].blank?
       return render json: { success: false, msg: 'Email address is required.' }, status: 422
     end
     
     if @user.save
-      @user.add_role :contact
+      @user.add_role :teacher
+
+      @user.create_profile(profile_params)
       
-      ## send verification code
-      UserMailer.new_user_account(@user, password).deliver_now
+      ## Notify admin
+      UserMailer.new_signup(@user).deliver_now
       return render json: {success: true, msg: 'User created successfully.', data: { id: @user.id, email: email}}, status: 200
     else
       return render json: { success: false, msg: 'Sorry! the email address already exists.' }, status: 512
@@ -142,20 +144,16 @@ class Api::V1::UsersController < Api::V1::ApiController
       return render json: { success: false, msg: 'Invalid Password.' }, status: 401
     end
 
-  end
-
-  def address
-    @address = (@user.personal_info.favorited_by_type('Address')).reverse_each
-    if !@address.nil?
-      return render json: {success: true, msg: 'User Addresses.', data: { addresses: @address}}, status: 200
-    else
-      return render json: { success: false, msg: 'Address not found.' }, status: 401
-    end
-  end
+  end  
 
   def signout
     @user.update_logout_details()
 
     return render json: { success: true, msg: 'You have been logged out successfully.' }, status: 200
   end
+
+  private
+    def profile_params
+      params.fetch(:user, {}).permit(:full_name, :organization, :phone)
+    end
 end

@@ -1,14 +1,8 @@
-class UserMailer < ApplicationMailer
-  
-  def invitation email, user, meeting
-    @user     = user
-    @meeting  = meeting
-    mail(to: email, subject: "You are invited to meeting #{@meeting.title}")
-  end
+class UserMailer < ApplicationMailer  
 
-  def new_user_account user, password
+  def new_signup user
     @user     = user
-    @password = password
-    mail(to: user.email, subject: "Your account has been created.")
+
+    mail(to: Settings.admin_email, subject: "New Signup")
   end
 end

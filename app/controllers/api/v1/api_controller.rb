@@ -1,7 +1,7 @@
 class Api::V1::ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_via_token
-  around_action :set_time_zone
+  # around_action :set_time_zone
 
   private
     def authenticate_via_token
