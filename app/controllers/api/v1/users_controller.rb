@@ -41,11 +41,12 @@ class Api::V1::UsersController < Api::V1::ApiController
   ## Params:      @email  
   #####################################################################
   def signup
-    email     = params[:user][:email]
-    password  = Devise.friendly_token.first(8)
-    @user     = User.new(email: email, password: password)
+    email           = params[:user][:email]
+    password        = Devise.friendly_token.first(8)
+    @user           = User.new(email: email, password: password)
+    @user.is_active = false
 
-    if params[:user][:email].blank?
+    if email.blank?
       return render json: { success: false, msg: 'Email address is required.' }, status: 422
     end
     
