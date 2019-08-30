@@ -21,8 +21,10 @@ Rails.application.routes.draw do
           post :resetpassword
           post :update_password
         end
-      end       
+      end
 
+      resources :teacher_profiles, only: [:update]
+    
     end
   end
 
