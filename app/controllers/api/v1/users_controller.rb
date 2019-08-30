@@ -57,7 +57,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       
       ## Notify admin
       UserMailer.new_signup(@user).deliver_now
-      UserMailer.new_teacher_s_notify(@user).deliver_now
+      UserMailer.new_teacher_notify(@user).deliver_now
 
       return render json: {success: true, msg: 'User created successfully.', data: { id: @user.id, email: email}}, status: 200
     else
