@@ -20,7 +20,10 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     # Fetch user by email
     @user = User.find_by(email: email)
-    return render json: { success: false, msg: 'Email not found.' }, status: 401 unless @user
+    return render json: { success: false, msg: 'Invalid email / password.' }, status: 401 unless @user
+
+    # Check if user is active
+    return render json: { success: false, msg: "Sorry! Can't allow you to log in for the moment." }, status: 401 unless @user.is_active
 
     ## User found, check password and proceed
     if @user.valid_password?(password)
@@ -29,7 +32,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       ## Update user with token
       @user.update_attribute(:jwt_token, token)
 
-      return render json: {success: true, msg: 'User assigned authentication token.', data: { token: token, id: @user.id}}, status: 200
+      return render json: { success: true, msg: 'User assigned authentication token.', data: { token: token, id: @user.id} }, status: 200
     else
       return render json: { success: false, msg: 'Invalid email / password.' }, status: 401
     end
