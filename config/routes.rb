@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  resources :teachers, only: [:index, :show]
+
   namespace :api do
     namespace :v1 do
 
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
           post :resetpassword
           post :update_password
         end
-      end       
+      end
 
     end
   end

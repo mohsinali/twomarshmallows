@@ -1,0 +1,48 @@
+- content_for :styles do
+  = stylesheet_link_tag 'bootstrap-sweetalert/bootstrap-sweetalert.css', media: 'all'
+  = stylesheet_link_tag 'datatables/datatables.css', media: 'all'
+
+- content_for :scripts do
+  = javascript_include_tag 'bootstrap-sweetalert/bootstrap-sweetalert.js'
+
+
+h4.d-flex.justify-content-between.align-items-center
+  span.text-muted.font-weight-light Teachers
+
+hr.border-light.container-m--x.mt-0.mb-4/
+
+- if @teachers.any?
+  .card-datatable.table-responsive
+    #DataTables_Table_1_wrapper.dataTables_wrapper.dt-bootstrap4.no-footer
+      .row
+        .col-sm-12
+          table#DataTables_Table_1.datatables-demo.table.table-striped.table-bordered.dataTable.no-footer aria-describedby="DataTables_Table_1_info" role="grid"
+            thead
+              tr role="row"
+                th ID
+                th Name
+                th Email
+                th Actions
+            tbody
+              - @teachers.each_with_index do |teacher, index|
+                tr
+                  td
+                    = teacher.id
+                  td
+                    = teacher.name
+                    br
+                    span.badge.lnk-assign class="badge-#{teacher.has_role?(:super_admin) ? 'warning' : 'info'}" #{teacher.roles.first.name.humanize.titleize}
+                  td
+                    = teacher.email
+                  td
+                    = link_to teacher_path(id: teacher.id), title: 'Show' do
+                      i.lnr.lnr-file-add
+                    / |   &nbsp;
+                    / = link_to "JavaScript:void(0);", class: 'lnr-icon-md error lnk-trash', data: { id: teacher.id},  title: 'Delete teacher' do
+                    /   i.lnr.lnr-trash
+
+      .row
+        .col-sm-12.col-md-5
+        .col-sm-12.col-md-7
+          #DataTables_Table_1_paginate.dataTables_paginate.paging_simple_numbers
+            = paginate @teachers
