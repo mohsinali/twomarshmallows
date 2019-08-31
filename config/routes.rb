@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :teacher_profiles, only: [:update]
+    
     end
   end
 
