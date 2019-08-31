@@ -22,24 +22,21 @@ hr.border-light.container-m--x.mt-0.mb-4/
                 th ID
                 th Name
                 th Email
-                th Actions
+                th Organization
+                th Phone
             tbody
               - @teachers.each_with_index do |teacher, index|
                 tr
                   td
-                    = teacher.id
+                    = teacher.profile.id
                   td
-                    = teacher.name
-                    br
-                    span.badge.lnk-assign class="badge-#{teacher.has_role?(:super_admin) ? 'warning' : 'info'}" #{teacher.roles.first.name.humanize.titleize}
+                    = teacher.profile.full_name
                   td
                     = teacher.email
                   td
-                    = link_to teacher_path(id: teacher.id), title: 'Show' do
-                      i.lnr.lnr-file-add
-                    / |   &nbsp;
-                    / = link_to "JavaScript:void(0);", class: 'lnr-icon-md error lnk-trash', data: { id: teacher.id},  title: 'Delete teacher' do
-                    /   i.lnr.lnr-trash
+                    = teacher.profile.organization
+                  td
+                    = teacher.profile.phone
 
       .row
         .col-sm-12.col-md-5
