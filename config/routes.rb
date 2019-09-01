@@ -25,7 +25,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :teacher_profiles, only: [:update]
+      resources :teacher_profiles, only: [:update] do
+        collection do 
+          post :interests
+          get :interests
+        end
+      end
     
     end
   end
