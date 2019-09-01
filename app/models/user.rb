@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   rolify
+  acts_as_taggable_on :interests
 
   ## Associations
   has_one :teacher_profile, class_name: "TeacherProfile", foreign_key: "user_id", dependent: :destroy
