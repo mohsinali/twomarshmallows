@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :custom_authenticatable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   ## Validations
@@ -16,6 +16,10 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
 
   ## Hooks
+
+  def valid_for_custom_authentication?(password)
+    self.has_role?(:superadmin)
+  end
 
   def profile
     if self.has_role?(:teacher)
