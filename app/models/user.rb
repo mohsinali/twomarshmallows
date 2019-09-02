@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :custom_authenticatable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   ## Validations
@@ -35,6 +35,10 @@ class User < ApplicationRecord
     payload = { data: {user: {id: self.id, email: self.email}} }
     payload[:exp] = (Time.now + 100.days).to_i
     JWT.encode payload, Settings.hmac_secret, 'HS256'
+  end
+
+  def valid_for_custom_authentication?(password)
+    self.has_role?(:superadmin)
   end
 
 end
