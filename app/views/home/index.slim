@@ -1,13 +1,13 @@
 
 h4.d-flex.justify-content-between.align-items-center
-  span.text-muted.font-weight-light AmeriCamp Dashboard
+  span.text-muted.font-weight-light TwoMarshmallows Dashboard
   / = link_to new_meeting_path, class: 'btn btn-primary rounded-pill d-block' do
   /   span.ion.ion-md-add
-  /   | &nbsp; Create Meeting  
+  /   | &nbsp; Create Meeting
 
 - flash.each do |key, value|
   = content_tag :div, value, class: "alert alert-info"
-  
+
 hr.border-light.container-m--x.mt-0.mb-4/
 
 .row.stats-row
@@ -29,4 +29,3 @@ hr.border-light.container-m--x.mt-0.mb-4/
             .text-large 687,123
   .col-sm-6.col-xl-3
   .col-sm-6.col-xl-3
-
