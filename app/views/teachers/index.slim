@@ -6,35 +6,42 @@ h4.d-flex.justify-content-between.align-items-center
 
 hr.border-light.container-m--x.mt-0.mb-4/
 
-- if @teachers.any?
-  .card-datatable.table-responsive
-    #DataTables_Table_1_wrapper.dataTables_wrapper.dt-bootstrap4.no-footer
-      .row
-        .col-sm-12
-          table#DataTables_Table_1.datatables-demo.table.table-striped.table-bordered.dataTable.no-footer aria-describedby="DataTables_Table_1_info" role="grid"
-            thead
-              tr role="row"
-                th ID
-                th Name
-                th Email
-                th Organization
-                th Phone
-            tbody
-              - @teachers.each_with_index do |teacher, index|
-                tr
-                  td
-                    = teacher.profile.id
-                  td
-                    = teacher.profile.full_name
-                  td
-                    = teacher.email
-                  td
-                    = teacher.profile.organization
-                  td
-                    = teacher.profile.phone
+.card
+  .card-header
+    - if @teachers.any?
+      .card-datatable.table-responsive
+        #DataTables_Table_1_wrapper.dataTables_wrapper.dt-bootstrap4.no-footer
+          .row
+            .col-sm-12
+              table#DataTables_Table_1.datatables-demo.table.table-striped.table-bordered.dataTable.no-footer aria-describedby="DataTables_Table_1_info" role="grid"
+                thead
+                  tr role="row"
+                    th ID
+                    th Name
+                    th Email
+                    th Organization
+                    th Phone
+                    th Approve
+                tbody
+                  - @teachers.each_with_index do |teacher, index|
+                    tr
+                      td
+                        = teacher.profile.id
+                      td
+                        = teacher.profile.full_name
+                      td
+                        = teacher.email
+                      td
+                        = teacher.profile.organization
+                      td
+                        = teacher.profile.phone
 
-      .row
-        .col-sm-12.col-md-5
-        .col-sm-12.col-md-7
-          #DataTables_Table_1_paginate.dataTables_paginate.paging_simple_numbers
-            = paginate @teachers
+                      td                        
+                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: 'lnk-activate'
+                        
+
+          .row
+            .col-sm-12.col-md-5
+            .col-sm-12.col-md-7
+              #DataTables_Table_1_paginate.dataTables_paginate.paging_simple_numbers
+                = paginate @teachers
