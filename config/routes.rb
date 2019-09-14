@@ -34,6 +34,8 @@ Rails.application.routes.draw do
         collection do 
           post :interests
           get :interests
+          post :languages
+          get :languages
         end
       end
     

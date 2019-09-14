@@ -22,8 +22,18 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     return render json: {success: true, msg: msg, data: {interests: @interests.join(",")} }
   end
 
+  def languages    
+    if request.post?
+      params[:languages].each do |lang|
+        UserLanguage.create!(user_id: @user.id, language_code: lang[:language_code], is_native: lang[:is_native]) rescue ActiveRecord::RecordNotUnique
+      end
+    end
+    
+    @languages = @user.languages
+  end
+
   private
     def profile_params
-      params.fetch(:profile, {}).permit(:full_name, :organization, :phone)
+      params.fetch(:profile, {}).permit(:full_name, :organization, :phone, :avatar, :about)
     end
 end

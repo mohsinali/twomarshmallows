@@ -38,6 +38,8 @@ gem 'cancancan'
 gem 'devise_custom_authenticatable'
 
 gem 'acts-as-taggable-on', '~> 6.0'
+gem 'language_list'
+# gem 'countries'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_01_190705) do
+ActiveRecord::Schema.define(version: 2019_09_14_140117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,15 @@ ActiveRecord::Schema.define(version: 2019_09_01_190705) do
     t.string "avatar"
     t.text "about"
     t.index ["user_id"], name: "index_teacher_profiles_on_user_id"
+  end
+
+  create_table "user_languages", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "language_code"
+    t.boolean "is_native"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "language_code"], name: "index_user_languages_on_user_id_and_language_code", unique: true
   end
 
   create_table "users", force: :cascade do |t|
