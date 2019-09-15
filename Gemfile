@@ -75,6 +75,9 @@ gem 'redis-browser'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+## PGSearch
+# https://www.viget.com/articles/implementing-full-text-search-in-rails-with-postgres/
+
 gem 'delayed_job_active_record'
 
 ## #####################################

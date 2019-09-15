@@ -138,7 +138,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     new_password      = params[:new_password]
 
     if current_password.blank? || new_password.blank?
-      return render json: { success: false, msg: 'Password is required.' }, status: 422
+      return render json: { success: false, msg: 'Current password is required.' }, status: 422
     end
 
     if @user.valid_password?(current_password)
@@ -147,7 +147,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
       return render json: { success: true, msg: 'Password updated sucessfully.' }, status: 200
     else
-      return render json: { success: false, msg: 'Invalid Password.' }, status: 401
+      return render json: { success: false, msg: 'Current password is not valid.' }, status: 401
     end
 
   end  
