@@ -38,6 +38,8 @@ Rails.application.routes.draw do
           get :languages
         end
       end
+
+      resources :students, only: [:create]
     
     end
   end
