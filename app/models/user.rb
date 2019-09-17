@@ -27,7 +27,12 @@ class User < ApplicationRecord
     if self.has_role?(:teacher)
       self.teacher_profile
     elsif self.has_role?(:student)
+      self.student_profile
     end
+  end
+
+  def role
+    self.roles.last.name
   end
 
   def create_profile params

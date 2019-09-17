@@ -32,7 +32,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       ## Update user with token
       @user.update_attribute(:jwt_token, token)
 
-      return render json: { success: true, msg: 'User assigned authentication token.', data: { token: token, id: @user.id} }, status: 200
+      return render json: { success: true, msg: 'User assigned authentication token.', data: { token: token, id: @user.id, name: @user.profile.fullname, role: @user.role} }, status: 200
     else
       return render json: { success: false, msg: 'Invalid email / password.' }, status: 200
     end
