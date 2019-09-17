@@ -15,15 +15,15 @@ class Api::V1::UsersController < Api::V1::ApiController
     #  Check required params
     ## Email & password is required
     if email.blank? || password.blank?
-      return render json: { success: false, msg: 'Email and Password is required.' }, status: 400
+      return render json: { success: false, msg: 'Email and Password is required.' }, status: 200
     end
 
     # Fetch user by email
     @user = User.find_by(email: email)
-    return render json: { success: false, msg: 'Invalid email / password.' }, status: 401 unless @user
+    return render json: { success: false, msg: 'Invalid email / password.' }, status: 200 unless @user
 
     # Check if user is active
-    return render json: { success: false, msg: "Sorry! Can't allow you to log in for the moment." }, status: 401 unless @user.is_active
+    return render json: { success: false, msg: "Sorry! Can't allow you to log in for the moment." }, status: 200 unless @user.is_active
 
     ## User found, check password and proceed
     if @user.valid_password?(password)
@@ -34,7 +34,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
       return render json: { success: true, msg: 'User assigned authentication token.', data: { token: token, id: @user.id} }, status: 200
     else
-      return render json: { success: false, msg: 'Invalid email / password.' }, status: 401
+      return render json: { success: false, msg: 'Invalid email / password.' }, status: 200
     end
   end
 
@@ -50,7 +50,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @user.is_active = false
 
     if email.blank?
-      return render json: { success: false, msg: 'Email address is required.' }, status: 422
+      return render json: { success: false, msg: 'Email address is required.' }, status: 200
     end
     
     if @user.save
@@ -64,7 +64,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
       return render json: {success: true, msg: 'User created successfully.', data: { id: @user.id, email: email}}, status: 200
     else
-      return render json: { success: false, msg: 'Sorry! the email address already exists.' }, status: 512
+      return render json: { success: false, msg: 'Sorry! the email address already exists.' }, status: 200
     end
   end
 
@@ -80,13 +80,13 @@ class Api::V1::UsersController < Api::V1::ApiController
     #  Check required params
     ## Email is required
     if email.blank?
-      return render json: { success: false, msg: 'Email is required.' }, status: 422
+      return render json: { success: false, msg: 'Email is required.' }, status: 200
     end
 
     # Fetch user by email
     @user = User.where(email: email)
     if !@user.any?
-      return render json: { success: false, msg: 'Email not found.' }, status: 422
+      return render json: { success: false, msg: 'Email not found.' }, status: 200
     end
     @user = @user.first
 
@@ -109,7 +109,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     #  Check required params
     ## Email is required
     if token.blank? || password.blank?
-      return render json: { success: false, msg: 'Token and Password is required.' }, status: 422
+      return render json: { success: false, msg: 'Token and Password is required.' }, status: 200
     end
 
     # Fetch user by token
@@ -120,7 +120,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       @user.save
       return render json: { success: true, msg: 'Password reset sucessfully.' }, status: 200
     else
-      return render json: { success: false, msg: 'Invalid token.' }, status: 401
+      return render json: { success: false, msg: 'Invalid token.' }, status: 200
     end
   end
 
@@ -138,7 +138,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     new_password      = params[:new_password]
 
     if current_password.blank? || new_password.blank?
-      return render json: { success: false, msg: 'Current password is required.' }, status: 422
+      return render json: { success: false, msg: 'Current password is required.' }, status: 200
     end
 
     if @user.valid_password?(current_password)
@@ -147,7 +147,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
       return render json: { success: true, msg: 'Password updated sucessfully.' }, status: 200
     else
-      return render json: { success: false, msg: 'Current password is not valid.' }, status: 401
+      return render json: { success: false, msg: 'Current password is not valid.' }, status: 200
     end
 
   end  
