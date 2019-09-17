@@ -38,8 +38,14 @@ class User < ApplicationRecord
   def create_profile params
     if self.has_role?(:teacher)
       self.build_teacher_profile(params).save
+    
     elsif self.has_role?(:student)
+      self.build_student_profile(params).save
     end
+  end
+
+  def has_avatar?
+    !self.profile.avatar.blank?
   end
 
   def get_jwt_token
