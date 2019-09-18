@@ -32,6 +32,10 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     @languages = @user.languages
   end
 
+  def students
+    @students = @user.students    
+  end
+
   private
     def profile_params
       params.fetch(:profile, {}).permit(:full_name, :organization, :phone, :avatar, :about)

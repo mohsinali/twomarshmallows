@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one :teacher_profile, class_name: "TeacherProfile", foreign_key: "user_id", dependent: :destroy
   has_one :student_profile, class_name: "StudentProfile", foreign_key: "user_id", dependent: :destroy
   has_many :languages, class_name: "UserLanguage", foreign_key: "user_id", dependent: :destroy
+  has_many :students, class_name: "StudentProfile", foreign_key: "teacher_id", dependent: :destroy
 
 
   # Include default devise modules. Others available are:

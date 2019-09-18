@@ -36,6 +36,7 @@ Rails.application.routes.draw do
           get :interests
           post :languages
           get :languages
+          get :students
         end
       end
 
