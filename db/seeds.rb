@@ -15,7 +15,7 @@ end
 puts "Roles created successfully."
 
 
-admin = User.create(name: "Mohsin Ali", email: "admin@twomarshmallows.com", password: '321321321')
+admin = User.create(name: "Mohsin Ali", email: "admin@twomarshmallows.com", password: '321321321', is_active: true)
 admin.add_role :superadmin
 
 

@@ -6,6 +6,9 @@ class ProfileController < ApplicationController
     @user.is_active ^= true
     @user.save
 
+    ## Notify teacher when his account is activated.
+    TeacherMailer.account_activated(@user, Devise.friendly_token.first(6)).deliver_now
+
     respond_to do |format|
       format.js
     end
