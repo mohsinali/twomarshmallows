@@ -1,5 +1,10 @@
 - content_for :styles do  
   = stylesheet_link_tag 'datatables/datatables.css', media: 'all'
+  = stylesheet_link_tag 'ladda/ladda.css', media: 'all'
+
+- content_for :scripts do
+  = javascript_include_tag 'spin/spin.js'
+  = javascript_include_tag 'ladda/ladda.js'
 
 h4.d-flex.justify-content-between.align-items-center
   span.text-muted.font-weight-light Teachers
@@ -37,7 +42,7 @@ hr.border-light.container-m--x.mt-0.mb-4/
                         = teacher.profile.phone
 
                       td                        
-                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: 'lnk-activate', id: "lnk-activate-#{teacher.id}"
+                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: "btn #{teacher.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate spinner-button", id: "lnk-activate-#{teacher.id}"
                         
 
           .row
