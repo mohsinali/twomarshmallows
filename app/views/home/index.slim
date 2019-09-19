@@ -1,6 +1,6 @@
 
 h4.d-flex.justify-content-between.align-items-center
-  span.text-muted.font-weight-light AmeriCamp Dashboard
+  span.text-muted.font-weight-light #{Settings.brand_name} Dashboard
   / = link_to new_meeting_path, class: 'btn btn-primary rounded-pill d-block' do
   /   span.ion.ion-md-add
   /   | &nbsp; Create Meeting  
@@ -15,18 +15,18 @@ hr.border-light.container-m--x.mt-0.mb-4/
     .card.mb-4
       .card-body
         .d-flex.align-items-center
-          .lnr.lnr-users.display-4.text-warning
+          .lnr.lnr-user.display-4.text-warning
           .ml-3
-            .text-muted.small Agents
-            .text-large 105,652
+            .text-muted.small Teachers
+            .text-large #{User.with_role(:teacher).count}
   .col-sm-6.col-xl-3
     .card.mb-4
       .card-body
         .d-flex.align-items-center
-          .lnr.lnr-earth.display-4.text-info
+          .lnr.lnr-users.display-4.text-info
           .ml-3
-            .text-muted.small Contacts
-            .text-large 687,123
+            .text-muted.small Students
+            .text-large #{User.with_role(:student).count}
   .col-sm-6.col-xl-3
   .col-sm-6.col-xl-3
 
