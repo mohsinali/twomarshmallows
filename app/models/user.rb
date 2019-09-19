@@ -36,12 +36,14 @@ class User < ApplicationRecord
     self.roles.last.name
   end
 
-  def create_profile params
+  def create_profile params, options = {}
     if self.has_role?(:teacher)
       self.build_teacher_profile(params).save
     
     elsif self.has_role?(:student)
-      self.build_student_profile(params).save
+      student_profile = self.build_student_profile(params)
+      student_profile.teacher_id = options[:teacher_id]
+      student_profile.save
     end
   end
 

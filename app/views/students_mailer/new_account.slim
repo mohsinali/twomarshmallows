@@ -1,0 +1,16 @@
+p
+  b Hi #{@profile.name}!
+
+p
+  | Your account has been created. You can login usgin following credentials:<br />
+
+  b Email: 
+  = @student.email
+  br
+
+  b Password: 
+  = @password
+
+p
+  | Thank you<br />
+  | Team #{Settings.brand_name}
