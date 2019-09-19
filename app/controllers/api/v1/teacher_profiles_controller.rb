@@ -12,7 +12,7 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     end
 
     if request.post?
-      @user.interest_list.add(params[:interests], parse: true)
+      @user.interest_list = params[:interests]
       @user.save
 
       @interests = @user.interests
@@ -24,12 +24,13 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
 
   def languages    
     if request.post?
+      @user.languages.destroy_all
       params[:languages].each do |lang|
         UserLanguage.create!(user_id: @user.id, language_code: lang[:language_code], is_native: lang[:is_native]) rescue ActiveRecord::RecordNotUnique
       end
     end
     
-    @languages = @user.languages
+    @languages = @user.languages.reload
   end
 
   def students
