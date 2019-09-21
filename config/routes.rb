@@ -37,6 +37,7 @@ Rails.application.routes.draw do
           post :languages
           get :languages
           get :students
+          get :my_community
           post 'toggle_activate_student/:student_id', to: 'teacher_profiles#toggle_activate_student'
         end
       end

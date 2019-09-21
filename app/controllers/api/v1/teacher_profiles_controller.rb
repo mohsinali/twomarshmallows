@@ -5,6 +5,10 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     @profile.update_attributes(profile_params)
   end
 
+  def my_community
+    @community = User.with_any_role(:teacher, :student).reject{|u| u.is_active == false}.reverse
+  end
+
   def interests
     if request.get?
       @interests = @user.interests
