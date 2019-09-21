@@ -17,6 +17,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   private
     def student_params
-      params.fetch(:student, {}).permit(:name, :grade, :school, :age)
+      params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar)
     end
 end

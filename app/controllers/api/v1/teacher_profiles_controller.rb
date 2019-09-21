@@ -35,13 +35,14 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
 
   def toggle_activate_student
     student_id = params[:student_id]
-    @student = User.find_by(user_id: student_id, teacher_id: @user.id)
+    @student_profile = StudentProfile.find_by(user_id: student_id, teacher_id: @user.id)
 
-    if @student
-      @student.is_active ^= true
-      @student.save
+    if @student_profile
+      user = @student_profile.user
+      user.is_active ^= true
+      user.save
 
-      status = @student.is_active ? 'activated' : 'deactivated'
+      status = user.is_active ? 'activated' : 'deactivated'
       return render json: { success: true, msg: "Student account has been #{status}." }
     else
       return render json: { success: false, msg: 'Invalid student id.' }
