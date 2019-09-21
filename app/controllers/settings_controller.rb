@@ -1,8 +1,6 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
 
-  include GmailApi
-
   def index
     # @token = GoogleToken.new(current_user)
     # access_token = @token.fresh_token

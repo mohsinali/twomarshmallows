@@ -77,7 +77,7 @@ Rails.application.configure do
     password:   ENV["SMTP_PASSWORD"]
   }
 
-  config.action_mailer.default_url_options = { :host => 'americamp-staging.attribes.com' }
+  config.action_mailer.default_url_options = { :host => 'twomarshmallows.attribes.com' }
   config.action_mailer.raise_delivery_errors = true
   
   config.action_mailer.perform_deliveries = true
