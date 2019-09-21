@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_17_060619) do
+ActiveRecord::Schema.define(version: 2019_09_21_183323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_09_17_060619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar"
+    t.text "about"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_09_17_060619) do
     t.datetime "updated_at", null: false
     t.string "avatar"
     t.text "about"
+    t.boolean "is_approved", default: false
     t.index ["user_id"], name: "index_teacher_profiles_on_user_id"
   end
 

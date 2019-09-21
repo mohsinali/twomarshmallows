@@ -1,5 +1,5 @@
 class TeacherMailer < ApplicationMailer
-  def account_activated teacher, password
+  def account_activated teacher, password=""
     @teacher, @password  = teacher, password
     @profile  = @teacher.profile
 
