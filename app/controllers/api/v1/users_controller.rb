@@ -32,13 +32,14 @@ class Api::V1::UsersController < Api::V1::ApiController
       ## Update user with token
       @user.update_attribute(:jwt_token, token)
 
-      return render json: { success: true, msg: 'User assigned authentication token.', data: { 
-                token:        token, 
-                id:           @user.id, 
-                name:         @user.profile.full_name, 
+      return render json: { success: true, msg: 'User assigned authentication token.', data: {
+                token:        token,
+                id:           @user.id,
+                name:         @user.profile.full_name,
                 about:        @user.profile.about,
-                role:         @user.role, 
-                is_active:    @user.is_active, 
+                role:         @user.role,
+                is_active:    @user.is_active,
+                avatar:       @user.profile.avatar, 
                 has_avatar:   @user.has_avatar?
               } }, status: 200
     else
@@ -49,7 +50,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   #####################################################################
   ## Function:    signup
   ## Endpoint:    [POST]/users/signup
-  ## Params:      @email  
+  ## Params:      @email
   #####################################################################
   def signup
     email           = params[:user][:email]
@@ -60,12 +61,12 @@ class Api::V1::UsersController < Api::V1::ApiController
     if email.blank?
       return render json: { success: false, msg: 'Email address is required.' }, status: 200
     end
-    
+
     if @user.save
       @user.add_role :teacher
 
       @user.create_profile(profile_params)
-      
+
       ## Notify admin
       UserMailer.new_signup(@user).deliver_now
       UserMailer.new_teacher_notify(@user).deliver_now
@@ -158,7 +159,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       return render json: { success: false, msg: 'Current password is not valid.' }, status: 200
     end
 
-  end  
+  end
 
   def signout
     @user.update_logout_details()
