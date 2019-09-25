@@ -4,7 +4,7 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     if @user.id == params[:id].to_i
       @teacher = @user
     else
-      @student = @user.students.where(user_id: params[:id])
+      @student = @user.students.where(user_id: params[:id].to_i)
       return render json: {success: false, msg: 'Invalid user id.'} unless @student.any?
       @student = @student.last
     end
