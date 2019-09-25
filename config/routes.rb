@@ -42,8 +42,15 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :students, only: [:create]
-    
+      resources :students, only: [:create] do
+        collection do
+          post  :interests
+          get   :interests
+          post  :languages
+          get   :languages
+        end
+      end
+
     end
   end
 
