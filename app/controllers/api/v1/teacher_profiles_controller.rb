@@ -1,5 +1,15 @@
 class Api::V1::TeacherProfilesController < Api::V1::ApiController
   
+  def show    
+    if @user.id == params[:id].to_i
+      @teacher = @user
+    else
+      @student = @user.students.where(user_id: params[:id])
+      return render json: {success: false, msg: 'Invalid user id.'} unless @student.any?
+      @student = @student.last
+    end
+  end
+
   def update
     @profile = @user.profile
     @profile.update_attributes(profile_params)
