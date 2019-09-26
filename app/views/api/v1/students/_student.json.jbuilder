@@ -1,4 +1,4 @@
-user = User.find(student.user.id)
+user = student.user
 
 json.profile_id   student.id
 json.user_id      student.user.id
