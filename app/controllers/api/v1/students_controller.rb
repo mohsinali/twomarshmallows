@@ -15,6 +15,16 @@ class Api::V1::StudentsController < Api::V1::ApiController
     end
   end
 
+  def my_community
+    @students = @user.students
+    return render json: {success: true, msg: "Students Community.", data:@students }
+  end
+
+  def update
+    @profile = StudentProfile.find(params[:id])
+    @profile.update_attributes(student_params)
+  end
+
   def interests
     if request.get?
       @interests = @user.interests
@@ -45,6 +55,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   private
     def student_params
-      params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar)
+      params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar, :about)
     end
 end
