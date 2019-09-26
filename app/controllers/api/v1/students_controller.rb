@@ -1,11 +1,13 @@
 class Api::V1::StudentsController < Api::V1::ApiController
+  before_action :authenticate_via_token
+
   def create
     return render json: { success: false, msg: 'Email is required.' } if params[:student][:email].blank?
     begin
       password = Devise.friendly_token.first(6)
       @student = User.create!(email: params[:student][:email], password: password)
       @student.add_role(:student)
-
+      binding.pry
       @student.create_profile(student_params, {teacher_id: @user.id})
 
       ## Notify student about their login
@@ -17,12 +19,11 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   def my_community
     @students = @user.students
-    return render json: {success: true, msg: "Students Community.", data:@students }
+    return render json: {success: true, msg: "Students Community.", data: @students }
   end
 
   def update
-    @profile = StudentProfile.find(params[:id])
-    @profile.update_attributes(student_params)
+    @user.student_profile.update_attributes(student_params)
   end
 
   def interests

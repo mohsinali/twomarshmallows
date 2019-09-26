@@ -1,11 +1,12 @@
 json.success true
 json.msg 'Profile updated sucessfully.'
 json.data do
-  json.id           @profile.id
-  json.name         @profile.name
-  json.grade        @profile.grade
-  json.school       @profile.school
-  json.age          @profile.age
-  json.avatar       @profile.avatar
-  json.about        @profile.about
+  json.id           @user.profile.id
+  json.name         @user.profile.name
+  json.grade        @user.profile.grade
+  json.school       @user.profile.school
+  json.age          @user.profile.age
+  json.avatar       @user.profile.avatar
+  json.about        @user.profile.about
+  json.is_active    @user.is_active
 end
