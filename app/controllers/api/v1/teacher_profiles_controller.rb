@@ -1,8 +1,6 @@
 class Api::V1::TeacherProfilesController < Api::V1::ApiController
-<<<<<<< HEAD
-=======
-  
-  def show    
+
+  def show
     if @user.id == params[:id].to_i
       @teacher = @user
     else
@@ -11,7 +9,6 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
       @student = @student.last
     end
   end
->>>>>>> 6b086998ed9fcd6beff271a657064a867ab4b495
 
   def update
     @profile = @user.profile
