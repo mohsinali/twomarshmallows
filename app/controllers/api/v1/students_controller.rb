@@ -7,7 +7,7 @@ class Api::V1::StudentsController < Api::V1::ApiController
       password = Devise.friendly_token.first(6)
       @student = User.create!(email: params[:student][:email], password: password)
       @student.add_role(:student)
-      binding.pry
+
       @student.create_profile(student_params, {teacher_id: @user.id})
 
       ## Notify student about their login
