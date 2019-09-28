@@ -1,13 +1,15 @@
-user = student.user
+user = User.find(student.user.id)
 
 json.profile_id   student.id
-json.user_id      student.user.id
+json.user_id      user.id
 json.name         student.name
 json.avatar       student.avatar
 json.grade        student.grade
 json.school       student.school
 json.age          student.age
+json.about        student.about
 json.role         user.role
+json.is_active    user.is_active
 json.interests    user.interests.join(",")
 
 json.languages do

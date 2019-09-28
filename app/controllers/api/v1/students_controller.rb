@@ -1,4 +1,6 @@
 class Api::V1::StudentsController < Api::V1::ApiController
+  before_action :authenticate_via_token
+
   def create
     return render json: { success: false, msg: 'Email is required.' } if params[:student][:email].blank?
     begin
@@ -13,6 +15,16 @@ class Api::V1::StudentsController < Api::V1::ApiController
     rescue Exception => e
       return render json: { success: false, msg: e.message }
     end
+  end
+
+  def my_community
+    teacher_id = @user.student_profile.teacher_id
+    @students = StudentProfile.where(teacher_id: teacher_id)
+    return render json: {success: true, msg: "Students Community.", data: @students }
+  end
+
+  def update
+    @user.student_profile.update_attributes(student_params)
   end
 
   def interests
@@ -45,6 +57,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   private
     def student_params
-      params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar)
+      params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar, :about)
     end
 end

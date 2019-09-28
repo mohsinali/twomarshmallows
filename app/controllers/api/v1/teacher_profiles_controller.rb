@@ -1,6 +1,6 @@
 class Api::V1::TeacherProfilesController < Api::V1::ApiController
-  
-  def show    
+
+  def show
     if @user.id == params[:id].to_i
       @teacher = @user
     else
@@ -36,14 +36,14 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     return render json: {success: true, msg: msg, data: {interests: @interests.join(",")} }
   end
 
-  def languages    
+  def languages
     if request.post?
       @user.languages.destroy_all
       params[:languages].each do |lang|
         UserLanguage.create!(user_id: @user.id, language_code: lang[:language_code], is_native: lang[:is_native]) rescue ActiveRecord::RecordNotUnique
       end
     end
-    
+
     @languages = @user.languages.reload
   end
 
@@ -64,7 +64,7 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
   end
 
   def students
-    @students = @user.students    
+    @students = @user.students
   end
 
   private

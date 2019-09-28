@@ -42,12 +42,13 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :students, only: [:create] do
+      resources :students, only: [:create, :update] do
         collection do
           post  :interests
           get   :interests
           post  :languages
           get   :languages
+          get   :my_community
         end
       end
 
