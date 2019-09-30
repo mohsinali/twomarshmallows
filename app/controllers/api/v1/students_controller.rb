@@ -20,7 +20,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
   def my_community
     teacher_id = @user.student_profile.teacher_id
     @students = StudentProfile.where(teacher_id: teacher_id)
-    return render json: {success: true, msg: "Students Community.", data: @students }
   end
 
   def update
