@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   }
 
   resources :teachers, only: [:index, :show]
+  resources :students, only: [:index, :show]
   resources :profile, only: :none do
     collection do
       post :toggle_activate
+      post :toggle_activate_student
     end
   end
 
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
       end
 
       resources :teacher_profiles, only: [:show, :update] do
-        collection do 
+        collection do
           post :interests
           get :interests
           post :languages

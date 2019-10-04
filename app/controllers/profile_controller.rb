@@ -4,7 +4,7 @@ class ProfileController < ApplicationController
   def toggle_activate
     @user           = User.find_by(id: params[:id])
     @user.toggle :is_active
-    
+
     password  = ""
     profile   = @user.profile
     unless @user.profile.is_approved
@@ -18,6 +18,22 @@ class ProfileController < ApplicationController
     ## Notify teacher when his account is activated.
     TeacherMailer.account_activated(@user, password).deliver_now if @user.is_active
 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def toggle_activate_student
+    @user = User.find_by(id: params[:id])
+    @user.toggle :is_active
+
+    if @user.save
+      if !@user.is_active
+        StudentsMailer.account_deactivated(@user).deliver_now
+      else
+        StudentsMailer.account_activated(@user).deliver_now
+      end
+    end
     respond_to do |format|
       format.js
     end
