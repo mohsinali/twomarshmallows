@@ -7,14 +7,14 @@
   = javascript_include_tag 'ladda/ladda.js'
 
 h4.d-flex.justify-content-between.align-items-center
-  span.text-muted.font-weight-light Teachers
+  span.text-muted.font-weight-light students
 
 hr.border-light.container-m--x.mt-0.mb-4/
 = render partial: 'filters'
 
 .card
   .card-header
-    - if @teachers.any?
+    - if @students.any?
       .card-datatable.table-responsive
         #DataTables_Table_1_wrapper.dataTables_wrapper.dt-bootstrap4.no-footer
           .row
@@ -25,27 +25,30 @@ hr.border-light.container-m--x.mt-0.mb-4/
                     th ID
                     th Name
                     th Email
-                    th Organization/School
-                    th Phone
+                    th School
+                    th Age
+                    th Grade
                     th Approve
                 tbody
-                  - @teachers.each_with_index do |teacher, index|
+                  - @students.each_with_index do |student, index|
                     tr
                       td
-                        = teacher.id
+                        = student.id
                       td
-                        = teacher.profile.full_name
+                        = student.profile.name
                       td
-                        = teacher.email
+                        = student.email
                       td
-                        = teacher.profile.organization
+                        = student.profile.school
                       td
-                        = teacher.profile.phone
+                        = student.profile.age
                       td
-                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: "btn #{teacher.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate spinner-button", id: "lnk-activate-#{teacher.id}"
+                        = student.profile.grade
+                      td
+                        = link_to student.is_active ? 'Deactivate' : 'Activate', toggle_activate_student_profile_index_path(id: student.id), remote: true, method: :post, class: "btn #{student.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate spinner-button", id: "lnk-activate-#{student.id}"
 
           .row
             .col-sm-12.col-md-5
             .col-sm-12.col-md-7
               #DataTables_Table_1_paginate.dataTables_paginate.paging_simple_numbers
-                = paginate @teachers
+                = paginate @students

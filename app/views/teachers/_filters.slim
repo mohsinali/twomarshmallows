@@ -1,0 +1,26 @@
+/! Filters
+.ui-bordered.px-4.pt-4.mb-4
+  / params.merge(:action=>"index")
+  = form_tag teachers_path(), method: :get do
+    .form-row
+      .col-md.mb-4
+        label.form-label Organization
+        = text_field_tag :organization, params[:organization], class: 'form-control', placeholder: "Organization name"
+
+      .col-md.mb-4
+        label.form-label Account Status
+        = select_tag :status, options_for_select([['Approved', true], ['Not Approved', false]], selected: params[:status]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Language
+        = select_tag :lang, options_from_collection_for_select(LanguageList::COMMON_LANGUAGES, "iso_639_1", "name", selected: params[:lang]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Language Status
+        = select_tag :lang_status, options_for_select([['Native', true], ['Learned', false]], selected: params[:lang_status]), class: 'custom-select', prompt: 'Any'
+
+
+      .col-md.col-xl-2.mb-4
+        label.form-label.d-none.d-md-block &nbsp;
+        = submit_tag 'Apply', class: 'btn btn-danger btn-block'
+/! / Filters
