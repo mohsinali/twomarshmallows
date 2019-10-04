@@ -25,7 +25,7 @@ hr.border-light.container-m--x.mt-0.mb-4/
                     th ID
                     th Name
                     th Email
-                    th Organization/School
+                    th Organization
                     th Phone
                     th Approve
                 tbody
@@ -42,7 +42,7 @@ hr.border-light.container-m--x.mt-0.mb-4/
                       td
                         = teacher.profile.phone
                       td
-                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: "btn #{teacher.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate spinner-button", id: "lnk-activate-#{teacher.id}"
+                        = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: "btn #{teacher.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate", id: "lnk-activate-#{teacher.id}", data: {:confirm=>'Are you really want to proceed?'}
 
           .row
             .col-sm-12.col-md-5

@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
 
       # Filter For School
       if !params[:school].blank?
-        @students = @students.select{ |student| student.profile.organization == params[:school]}
+        @students = @students.select{ |student| student.profile.school== params[:school]}
       end
 
       ## Status filter

@@ -7,7 +7,7 @@
   = javascript_include_tag 'ladda/ladda.js'
 
 h4.d-flex.justify-content-between.align-items-center
-  span.text-muted.font-weight-light students
+  span.text-muted.font-weight-light Students
 
 hr.border-light.container-m--x.mt-0.mb-4/
 = render partial: 'filters'
@@ -45,7 +45,7 @@ hr.border-light.container-m--x.mt-0.mb-4/
                       td
                         = student.profile.grade
                       td
-                        = link_to student.is_active ? 'Deactivate' : 'Activate', toggle_activate_student_profile_index_path(id: student.id), remote: true, method: :post, class: "btn #{student.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate spinner-button", id: "lnk-activate-#{student.id}"
+                        = link_to student.is_active ? 'Deactivate' : 'Activate', toggle_activate_student_profile_index_path(id: student.id), data: {:confirm=>'Are you really want to proceed?'},  remote: true, method: :post, class: "btn #{student.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate", id: "lnk-activate-#{student.id}"
 
           .row
             .col-sm-12.col-md-5
