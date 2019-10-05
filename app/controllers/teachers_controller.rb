@@ -39,8 +39,8 @@ class TeachersController < ApplicationController
       end
 
       unless params[:lang_status].blank?
-        status = (params[:lang_status].to_s.downcase == "true")
-        @teachers = @teachers.select{|teacher| teacher.languages.select{ |l| l.is_native.eql?(status) && (!params[:lang].blank? ? l.language_code.eql?(params[:lang]) : true)}.any?}
+        status_check = (params[:lang_status].to_s.downcase == "true")
+        @teachers = @teachers.select{|teacher| teacher.languages.select{ |l| l.is_native.eql?(status_check) && (!params[:lang].blank? ? l.language_code.eql?(params[:lang]) : true)}.any?}
       end
     end
 

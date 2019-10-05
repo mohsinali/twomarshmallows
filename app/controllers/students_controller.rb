@@ -48,8 +48,8 @@ class StudentsController < ApplicationController
         @students = @students.select{|student| student.languages.map{|l| l.language_code}.include?(lang)}
       end
       unless params[:lang_status].blank?
-        c1 = (params[:lang_status].to_s.downcase == "true")
-        @students = @students.select{|student| student.languages.select{ |l| l.is_native.eql?(c1) && (!params[:lang].blank? ? l.language_code.eql?(params[:lang]) : true)}.any?}
+        status_check = (params[:lang_status].to_s.downcase == "true")
+        @students = @students.select{|student| student.languages.select{ |l| l.is_native.eql?(status_check) && (!params[:lang].blank? ? l.language_code.eql?(params[:lang]) : true)}.any?}
 
       end
     end
