@@ -16,7 +16,7 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
   end
 
   def my_community
-    @community = User.with_any_role(:teacher, :student).reject{|u| u.is_active == false}.reverse
+    @community = User.with_role(:teacher).reject{|u| u.is_active == false}.reverse
   end
 
   def interests

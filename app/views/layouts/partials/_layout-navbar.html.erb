@@ -37,10 +37,22 @@
               <i class="sidenav-icon ion ion-ios-desktop"></i><div>Dashboard</div>
             <% end %>
           </li>
-          <li class="sidenav-item<%= controller_name == 'contacts' ? ' active' : '' %>">
-            <%= link_to teachers_path, class: "sidenav-link" do %>
-              <i class="sidenav-icon ion ion-ios-contacts"></i><div>Teachers</div>
-            <% end %>
+          <li class="sidenav-item">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-contacts"></i>
+                Members
+              </a>
+              <ul class="sidenav-menu">
+                <li class="sidenav-item<%= controller_name == 'teachers' ? ' active' : '' %>">
+                  <%= link_to teachers_path, class: "sidenav-link" do %>
+                    <i class="sidenav-icon ion ion-md-contacts"></i><div>Teachers</div>
+                  <% end %>
+                </li>
+                <li class="sidenav-item<%= controller_name == 'students' ? ' active' : '' %>">
+                  <%= link_to students_path, class: "sidenav-link" do %>
+                    <i class="sidenav-icon ion ion-md-hand"></i><div>Students</div>
+                  <% end %>
+                </li>
+              </ul>
           </li>
           <li class="sidenav-item<%= controller_name == 'settings' ? ' active' : '' %>">
             <%= link_to root_path, class: "sidenav-link" do %>

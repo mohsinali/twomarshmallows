@@ -1,0 +1,33 @@
+/! Filters
+.ui-bordered.px-4.pt-4.mb-4
+  / params.merge(:action=>"index")
+  = form_tag students_path(), method: :get do
+    .form-row
+      .col-md.mb-4
+        label.form-label School
+        = text_field_tag :school, params[:school], class: 'form-control', placeholder: "School name"
+
+      .col-md.mb-4
+        label.form-label Account Status
+        = select_tag :status, options_for_select([['Approved', true], ['Not Approved', false]], selected: params[:status]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Age
+        = select_tag :age, options_for_select((5..20).step(1).map{|s| ["#{s}", s]}, selected: params[:age]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Grade
+        = select_tag :grade, options_for_select((1..12).step(1).map{|s| ["#{s}", s]}, selected: params[:grade]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Language
+        = select_tag :lang, options_from_collection_for_select(LanguageList::COMMON_LANGUAGES, "iso_639_1", "name", selected: params[:lang]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.mb-4
+        label.form-label Language Status
+        = select_tag :lang_status, options_for_select([['Native', true], ['Learned', false]], selected: params[:lang_status]), class: 'custom-select', prompt: 'Any'
+
+      .col-md.col-xl-2.mb-4
+        label.form-label.d-none.d-md-block &nbsp;
+        = submit_tag 'Apply', class: 'btn btn-danger btn-block'
+/! / Filters
