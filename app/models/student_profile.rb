@@ -6,4 +6,9 @@ class StudentProfile < ApplicationRecord
   def full_name
     name
   end
+
+  ## Returns all class fellows
+  def class_fellows
+    teacher.profile.students
+  end
 end

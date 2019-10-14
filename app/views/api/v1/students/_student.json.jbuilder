@@ -11,6 +11,7 @@ json.about        student.about
 json.role         user.role
 json.is_active    user.is_active
 json.interests    user.interests.join(",")
+json.class_fellow class_fellow_flag
 
 json.languages do
   json.native do

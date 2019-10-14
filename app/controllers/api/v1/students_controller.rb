@@ -17,9 +17,13 @@ class Api::V1::StudentsController < Api::V1::ApiController
     end
   end
 
+  ## Students community
   def my_community
-    teacher_id = @user.student_profile.teacher_id
-    @students = StudentProfile.where(teacher_id: teacher_id)
+    return render json: { success: false, msg: 'Data only for students.' } unless @user.has_role?(:student)
+
+    # teacher_id = @user.student_profile.teacher_id
+    @students = StudentProfile.all
+    @class_fellows = @user.profile.class_fellows
   end
 
   def update
