@@ -1,5 +1,6 @@
 class Api::V1::StudentsController < Api::V1::ApiController
   before_action :authenticate_via_token
+  before_action :only_students, only: [:my_community]
 
   def create
     return render json: { success: false, msg: 'Email is required.' } if params[:student][:email].blank?
@@ -19,8 +20,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   ## Students community
   def my_community
-    return render json: { success: false, msg: 'Data only for students.' } unless @user.has_role?(:student)
-
     # teacher_id = @user.student_profile.teacher_id
     @students = StudentProfile.all
     @class_fellows = @user.profile.class_fellows
@@ -61,5 +60,9 @@ class Api::V1::StudentsController < Api::V1::ApiController
   private
     def student_params
       params.fetch(:student, {}).permit(:name, :grade, :school, :age, :avatar, :about)
+    end
+
+    def only_students
+      return render json: { success: false, msg: 'Data only for students.' } unless @user.has_role?(:student)
     end
 end

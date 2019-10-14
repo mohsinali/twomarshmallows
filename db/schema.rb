@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_21_183323) do
+ActiveRecord::Schema.define(version: 2019_10_14_061747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 2019_09_21_183323) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string "avatar_hair"
+    t.string "avatar_accessories"
+    t.string "avatar_facial_hair"
+    t.string "avatar_facial_hair_color"
+    t.string "avatar_clothes"
+    t.string "avatar_skin_color"
+    t.string "name"
+    t.bigint "imageable_id"
+    t.string "imageable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
   end
 
   create_table "roles", force: :cascade do |t|

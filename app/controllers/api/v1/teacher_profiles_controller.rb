@@ -1,4 +1,5 @@
 class Api::V1::TeacherProfilesController < Api::V1::ApiController
+  before_action :only_teachers, only: [:update, :my_community]
 
   def show
     if @user.id == params[:id].to_i
@@ -13,6 +14,7 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
   def update
     @profile = @user.profile
     @profile.update_attributes(profile_params)
+    Picture.find_or_initialize_by(imageable_id: @profile.id, imageable_type: "TeacherProfile").update_attributes(avatar_params)
   end
 
   def my_community
@@ -70,5 +72,13 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
   private
     def profile_params
       params.fetch(:profile, {}).permit(:full_name, :organization, :phone, :avatar, :about)
+    end
+
+    def avatar_params
+      params.fetch(:avatar, {}).permit(:avatar_hair, :avatar_accessories, :avatar_facial_hair, :avatar_facial_hair_color, :avatar_clothes, :avatar_skin_color)
+    end
+
+    def only_teachers
+      return render json: { success: false, msg: 'Teachers only.' } unless @user.has_role?(:teacher)
     end
 end

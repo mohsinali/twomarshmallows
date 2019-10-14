@@ -4,7 +4,12 @@ json.data do
   json.id           @profile.id
   json.full_name    @profile.full_name
   json.organization @profile.organization
-  json.phone        @profile.phone
-  json.avatar       @profile.avatar
+  json.phone        @profile.phone  
   json.about        @profile.about
+  
+  json.avatar do
+    unless @profile.picture.nil?      
+      json.partial! 'api/v1/teacher_profiles/avatar', picture: @profile.picture
+    end
+  end
 end
