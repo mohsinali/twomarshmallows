@@ -9,7 +9,7 @@ json.data do
   
   json.avatar do
     unless @profile.picture.nil?      
-      json.partial! 'api/v1/teacher_profiles/avatar', picture: @profile.picture
+      json.partial! 'api/v1/shared/avatar', picture: @profile.picture
     end
   end
 end

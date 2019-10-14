@@ -26,7 +26,9 @@ class Api::V1::StudentsController < Api::V1::ApiController
   end
 
   def update
-    @user.student_profile.update_attributes(student_params)
+    @profile = @user.profile
+    @profile.update_attributes(student_params)
+    Picture.find_or_initialize_by(imageable_id: @profile.id, imageable_type: "StudentProfile").update_attributes(avatar_params)
   end
 
   def interests
@@ -64,5 +66,9 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
     def only_students
       return render json: { success: false, msg: 'Data only for students.' } unless @user.has_role?(:student)
+    end
+
+    def avatar_params
+      params.fetch(:avatar, {}).permit(:avatar_hair, :avatar_accessories, :avatar_facial_hair, :avatar_facial_hair_color, :avatar_clothes, :avatar_skin_color)
     end
 end
