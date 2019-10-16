@@ -69,6 +69,14 @@ class Api::V1::TeacherProfilesController < Api::V1::ApiController
     @students = @user.students
   end
 
+  def suspended_students    
+    @students = User.inactive.with_role(:student).includes(:student_profile).map{ |u| u.profile }
+  end
+
+  def unsuspended_students    
+    @students = User.active.with_role(:student).includes(:student_profile).map{ |u| u.profile }
+  end
+
   private
     def profile_params
       params.fetch(:profile, {}).permit(:full_name, :organization, :phone, :avatar, :about)

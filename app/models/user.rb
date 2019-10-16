@@ -18,6 +18,10 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :password, presence: true, on: :create
 
+  ## Scopes
+  scope :active, ->{ where(is_active: true) }
+  scope :inactive, ->{ where(is_active: false) }
+
   ## Hooks
 
   def valid_for_custom_authentication?(password)
