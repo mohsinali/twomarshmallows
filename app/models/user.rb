@@ -43,7 +43,7 @@ class User < ApplicationRecord
   def create_profile params, options = {}
     if self.has_role?(:teacher)
       self.build_teacher_profile(params).save
-    
+
     elsif self.has_role?(:student)
       student_profile = self.build_student_profile(params)
       student_profile.teacher_id = options[:teacher_id]
@@ -52,7 +52,8 @@ class User < ApplicationRecord
   end
 
   def has_avatar?
-    !self.profile.avatar.blank?
+    avatar = Picture.find_by(imageable_id: self.profile.id)
+    !avatar.blank?
   end
 
   def get_jwt_token
