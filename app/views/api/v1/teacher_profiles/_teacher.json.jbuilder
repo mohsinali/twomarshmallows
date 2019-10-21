@@ -10,9 +10,7 @@ json.role           user.role
 json.interests      user.interests.join(",")
 
 json.avatar do
-  unless teacher.picture.nil?      
-    json.partial! 'api/v1/shared/avatar', picture: teacher.picture
-  end
+  json.partial! 'api/v1/shared/avatar', picture: teacher.picture
 end
 
 json.languages do

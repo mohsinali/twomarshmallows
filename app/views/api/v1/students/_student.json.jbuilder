@@ -10,12 +10,11 @@ json.about        student.about
 json.role         user.role
 json.is_active    user.is_active
 json.interests    user.interests.join(",")
-json.class_fellow class_fellow_flag
+json.class_fellow @class_fellows ? class_fellow_flag : false
+
 
 json.avatar do
-  unless student.picture.nil?      
-    json.partial! 'api/v1/shared/avatar', picture: student.picture
-  end
+  json.partial! 'api/v1/shared/avatar', picture: student.picture
 end
 
 json.languages do
