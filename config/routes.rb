@@ -29,6 +29,7 @@ Rails.application.routes.draw do
           post :forgotpassword
           post :resetpassword
           post :update_password
+          get  'profile/:id', to: 'users#profile'
         end
       end
 

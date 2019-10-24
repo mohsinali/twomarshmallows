@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   include Api::V1::UsersHelper
-  skip_before_action :authenticate_via_token, only: [:signin, :signup]
+  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile]
 
   #####################################################################
   ## Function:    signin
@@ -155,6 +155,11 @@ class Api::V1::UsersController < Api::V1::ApiController
     @user.update_logout_details()
 
     return render json: { success: true, msg: 'You have been logged out successfully.' }, status: 200
+  end
+
+  def profile
+    @person = User.find(params[:id].to_i)
+    return render json: {success: false, msg: 'Invalid user id.'} unless @person
   end
 
   private
