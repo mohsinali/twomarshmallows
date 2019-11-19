@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   include Api::V1::UsersHelper
-  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password]
+  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password ]
 
   #####################################################################
   ## Function:    signin
