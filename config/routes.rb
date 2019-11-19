@@ -26,7 +26,7 @@ Rails.application.routes.draw do
           post :signin
           post :signup
           get  :address, to: 'users#address'
-          post :forgotpassword
+          post :forgot_password
           post :resetpassword
           post :update_password
           get  'profile/:id', to: 'users#profile'

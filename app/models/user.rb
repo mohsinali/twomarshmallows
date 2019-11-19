@@ -24,6 +24,14 @@ class User < ApplicationRecord
 
   ## Hooks
 
+  def active_for_authentication?
+    #remember to call the super
+    #then put our own check to determine role is not "contact" using
+    #rolify method "has_role?(:contact)"
+
+    super and !self.has_role?(:student)
+  end
+
   def valid_for_custom_authentication?(password)
     self.has_role?(:superadmin)
   end

@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   include Api::V1::UsersHelper
-  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile]
+  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password]
 
   #####################################################################
   ## Function:    signin
@@ -73,9 +73,9 @@ class Api::V1::UsersController < Api::V1::ApiController
   ## Params:      @email
   ## Description: If email is verified, reset password email with token is sent to user.
   #####################################################################
-  def forgotpassword
+  def forgot_password
     email = params[:email]
-
+    url = params[:callback_url]
     #  Check required params
     ## Email is required
     if email.blank?
@@ -88,8 +88,11 @@ class Api::V1::UsersController < Api::V1::ApiController
       return render json: { success: false, msg: 'Email not found.' }, status: 200
     end
     @user = @user.first
-
-    @user.send_reset_password_instructions
+    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
+    @user.reset_password_token = hashed
+    @user.reset_password_sent_at = Time.now.utc
+    @user.save
+    UserMailer.forgot_password(@user, raw, url).deliver_now
     return render json: { success: true, msg: 'Reset password email has been sent.' }, status: 200
   end
 
