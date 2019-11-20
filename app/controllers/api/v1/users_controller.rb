@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
   include Api::V1::UsersHelper
-  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password ]
+  skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password, :resetpassword ]
 
   #####################################################################
   ## Function:    signin
@@ -92,7 +92,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @user.reset_password_token = hashed
     @user.reset_password_sent_at = Time.now.utc
     @user.save
-    UserMailer.forgot_password(@user, raw, url).deliver_now
+    UserMailer.forgot_password(@user, hashed, url).deliver_now
     return render json: { success: true, msg: 'Reset password email has been sent.' }, status: 200
   end
 
@@ -109,7 +109,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     password = params[:password]
 
     #  Check required params
-    ## Email is required
+    ## Token is required
     if token.blank? || password.blank?
       return render json: { success: false, msg: 'Token and Password is required.' }, status: 200
     end
@@ -120,7 +120,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       @user.password = password
       @user.reset_password_token = nil
       @user.save
-      return render json: { success: true, msg: 'Password reset sucessfully.' }, status: 200
+      return render json: { success: true, msg: 'Password reset successfully.' }, status: 200
     else
       return render json: { success: false, msg: 'Invalid token.' }, status: 200
     end
