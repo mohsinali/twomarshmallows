@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   ##              @password
   #####################################################################
   def signin
-    email     = params[:email]
+    email     = params[:email].downcase
     password  = params[:password]
 
     #  Check required params
@@ -45,7 +45,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   def signup
     email           = params[:user][:email]
     password        = Devise.friendly_token.first(8)
-    @user           = User.new(email: email, password: password)
+    @user           = User.new(email: email.downcase, password: password)
     @user.is_active = false
 
     if email.blank?
