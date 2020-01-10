@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def valid_for_custom_authentication?(password)
-    self.has_role?(:superadmin)
+    self.has_role?(:superadmin) && self.valid_password?(password)
   end
 
   def profile
