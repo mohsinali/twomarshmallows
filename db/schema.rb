@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_061747) do
+ActiveRecord::Schema.define(version: 2020_01_15_092636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_061747) do
     t.boolean "is_native"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "language_code"], name: "index_user_languages_on_user_id_and_language_code", unique: true
+    t.index ["user_id", "language_code", "is_native"], name: "index_user_languages_on_user_id_and_language_code_and_is_native", unique: true
   end
 
   create_table "users", force: :cascade do |t|
