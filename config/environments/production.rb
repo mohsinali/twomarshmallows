@@ -72,9 +72,9 @@ Rails.application.configure do
     raise_delivery_errors: true
   }
 
-  config.action_mailer.default_url_options = { :host => 'marshmallow.attribes.com' }
+  config.action_mailer.default_url_options = { :host => 'app.tmlanguages.com' }
   config.action_mailer.raise_delivery_errors = true
-  
+
   config.action_mailer.perform_deliveries = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -94,7 +94,7 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
+  config.relative_url_root = "/adminpanel"
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
