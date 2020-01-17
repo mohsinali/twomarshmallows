@@ -11,7 +11,7 @@ class UserMailer < ApplicationMailer
     @teacher  = teacher
     @profile  = @teacher.profile
 
-    mail(to: @teacher.email, subject: "TwoMarsmallow: Just A Little Wait")
+    mail(to: @teacher.email, subject: "Account awaiting approval")
   end
 
   def forgot_password(user, raw, url)
@@ -19,6 +19,6 @@ class UserMailer < ApplicationMailer
     @token = raw
     @url = url
 
-    mail(to: @user.email, subject: "Reset password instructions has been sent to your mail.")
+    mail(to: @user.email, subject: "Two Marshmallows Password Reset Request.")
   end
 end
