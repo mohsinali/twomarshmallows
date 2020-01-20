@@ -22,6 +22,7 @@ class Api::V1::StudentsController < Api::V1::ApiController
   def my_community
     # teacher_id = @user.student_profile.teacher_id
     @students = StudentProfile.all
+    @students = @students.select{ |student| !student.about.nil?}
     @class_fellows = @user.profile.class_fellows
   end
 

@@ -3,6 +3,6 @@ class TeacherMailer < ApplicationMailer
     @teacher, @password  = teacher, password
     @profile  = @teacher.profile
 
-    mail(to: @teacher.email, subject: "TwoMarsmallow: Your account has been activated.") 
+    mail(to: @teacher.email, subject: "Welcome to the Two Marshmallows Community") 
   end
 end

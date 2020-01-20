@@ -1,17 +1,17 @@
 p
   b Hi #{@teacher.profile.full_name}
 
-- if @password.blank?
-  p
-    | Your account has been activated.
-- else
-  p
-    | Your account has been activated. You can login using following information:<br />
-    b Email: 
-    = @teacher.email
-    br
-    b Password: 
-    = @password
-br
+p
+  | Your account has been activated. You can login using following information:<br />
+  <br />
+  b Email:
+  = @teacher.email
+  br
+  b Password:
+  = @password
+p
+  Please create your own password after you login and finish customizing your profile. <br />
+  If you have any questions at all, do not hesitate to contact me.
 
-| Team TwoMarshmallows
+p Regards, <br />
+  Dan at Two Marshall

@@ -6,6 +6,7 @@ json.name           teacher.full_name
 json.organization   teacher.organization
 json.phone          teacher.phone
 json.about          teacher.about
+json.is_active      teacher.user.is_active
 json.role           user.role
 json.interests      user.interests.join(",")
 
