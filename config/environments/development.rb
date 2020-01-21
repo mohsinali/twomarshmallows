@@ -64,12 +64,14 @@ Rails.application.configure do
     password:   ENV["SMTP_PASSWORD"]
   }
 
-  # ActionMailer Config  
+  # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp  
+  config.action_mailer.delivery_method = :smtp
   # Send email in development mode?
   config.action_mailer.perform_deliveries = true
 
+  # setting default name for email name.
+  config.default_name = "TM Demo"
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 

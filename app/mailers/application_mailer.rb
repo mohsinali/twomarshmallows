@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default :from => '"TwoMarshmallows" <dan@twomarshmallows.ca>'
+  default :from => "#{Rails.application.config.default_name}".concat(' <dan@twomarshmallows.ca>')
   layout 'mailer'
 end
