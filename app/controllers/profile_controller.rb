@@ -13,7 +13,12 @@ class ProfileController < ApplicationController
       profile.is_approved = true
       profile.save
     end
-    @user.save
+    
+    if @user.save
+      if !@user.is_active
+        @user.update_attribute(:jwt_token, nil)
+      end
+    end
 
     ## Notify teacher when his account is activated.
     if !password.blank?
@@ -28,7 +33,13 @@ class ProfileController < ApplicationController
   def toggle_activate_student
     @user = User.find_by(id: params[:id])
     @user.toggle :is_active
-    @user.save
+    # @user.save
+
+    if @user.save
+      if !@user.is_active
+        @user.update_attribute(:jwt_token, nil)
+      end
+    end
 
     respond_to do |format|
       format.js
