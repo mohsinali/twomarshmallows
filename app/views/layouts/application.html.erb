@@ -35,6 +35,27 @@
   <!-- Layout helpers -->
   <%= javascript_include_tag 'layout-helpers.js' %>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAVAgvYKB0OJfTcKun854R6TKPEy7r8jhs",
+      authDomain: "rorintegration.firebaseapp.com",
+      databaseURL: "https://rorintegration.firebaseio.com",
+      projectId: "rorintegration",
+      storageBucket: "rorintegration.appspot.com",
+      messagingSenderId: "525811541924",
+      appId: "1:525811541924:web:656dd6d96f57b47e8f4331"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

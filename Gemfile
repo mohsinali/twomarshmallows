@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
-
+gem "google-cloud-firestore"
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use slim as templating engine

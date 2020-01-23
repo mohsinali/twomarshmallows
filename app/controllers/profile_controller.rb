@@ -1,5 +1,8 @@
+require "google/cloud/firestore"
+
 class ProfileController < ApplicationController
   before_action :authenticate_user!
+
 
   def toggle_activate
     @user           = User.find_by(id: params[:id])
@@ -13,10 +16,14 @@ class ProfileController < ApplicationController
       profile.is_approved = true
       profile.save
     end
-    
+
+
     if @user.save
       if !@user.is_active
         @user.update_attribute(:jwt_token, nil)
+        firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+        doc_ref = firestore.doc("user_status/#{@user.id}")
+        doc_ref.set(is_active: false)
       end
     end
 
@@ -38,6 +45,9 @@ class ProfileController < ApplicationController
     if @user.save
       if !@user.is_active
         @user.update_attribute(:jwt_token, nil)
+        firestore = Google::Cloud::Firestore.new project_id: "twomarshmallows", credentials: "./TwoMarshmallows.json"
+        doc_ref = firestore.doc("user_status/#{@user.id}")
+        doc_ref.set(is_active: false)
       end
     end
 
