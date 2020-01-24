@@ -1,1 +1,7 @@
-location.href = "/students";
+<% if Rails.env == "development" || Rails.env == "staging"%>
+   location.href = "/students";
+
+<% else %>
+   location.href = "/adminpanel/students";
+
+<% end %>
