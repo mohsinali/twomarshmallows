@@ -1,3 +1,5 @@
+require "google/cloud/firestore"
+
 class Api::V1::UsersController < Api::V1::ApiController
   include Api::V1::UsersHelper
   skip_before_action :authenticate_via_token, only: [:signin, :signup, :profile, :forgot_password, :resetpassword ]
@@ -54,6 +56,12 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     if @user.save
       @user.add_role :teacher
+
+      # Adding user_status on firebase w.r.t user id
+
+      firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+      doc_ref = firestore.doc("user_status/#{@user.id}")
+      doc_ref.set(is_active: true)
 
       @user.create_profile(profile_params)
 

@@ -1,3 +1,5 @@
+require "google/cloud/firestore"
+
 class Api::V1::StudentsController < Api::V1::ApiController
   before_action :authenticate_via_token
   before_action :only_students, only: [:my_community]
@@ -10,6 +12,11 @@ class Api::V1::StudentsController < Api::V1::ApiController
       @student.add_role(:student)
 
       @student.create_profile(student_params, {teacher_id: @user.id})
+
+      # Adding user_status on firebase w.r.t user id
+      firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+      doc_ref = firestore.doc("user_status/#{@student.id}")
+      doc_ref.set(is_active: true)
 
       ## Notify student about their login
       StudentsMailer.new_account(@student, password).deliver_now
