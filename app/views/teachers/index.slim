@@ -34,13 +34,13 @@ hr.border-light.container-m--x.mt-0.mb-4/
                       td
                         = teacher.id
                       td
-                        = teacher.profile.full_name
+                        = teacher.profile.try(:full_name)
                       td
                         = teacher.email
                       td
-                        = teacher.profile.organization
+                        = teacher.profile.try(:organization)
                       td
-                        = teacher.profile.phone
+                        = teacher.profile.try(:phone)
                       td
                         = link_to teacher.is_active ? 'Deactivate' : 'Activate', toggle_activate_profile_index_path(id: teacher.id), remote: true, method: :post, class: "btn #{teacher.is_active ? 'btn-danger' : 'btn-success'} btn-sm lnk-activate", id: "lnk-activate-#{teacher.id}", data: {:confirm=>'Are you really want to proceed?'}
 
