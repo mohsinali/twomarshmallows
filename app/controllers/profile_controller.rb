@@ -56,7 +56,7 @@ class ProfileController < ApplicationController
 
   private
     def set_fs_doc
-      @firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+      @firestore = Google::Cloud::Firestore.new credentials: ENV["FIREBASE_CREDENTIALS_PATH"]
       @doc_ref = @firestore.doc("user_status/#{params[:id]}")
     end
 end

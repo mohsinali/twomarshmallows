@@ -59,7 +59,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
       # Adding user_status on firebase w.r.t user id
 
-      firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+      firestore = Google::Cloud::Firestore.new credentials: ENV["FIREBASE_CREDENTIALS_PATH"]
       doc_ref = firestore.doc("user_status/#{@user.id}")
       doc_ref.set(is_active: true)
 

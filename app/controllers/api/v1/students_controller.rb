@@ -14,7 +14,7 @@ class Api::V1::StudentsController < Api::V1::ApiController
       @student.create_profile(student_params, {teacher_id: @user.id})
 
       # Adding user_status on firebase w.r.t user id
-      firestore = Google::Cloud::Firestore.new project_id: "twomarshmallow-c8a6c", credentials: "./TwoMarshmallows.json"
+      firestore = Google::Cloud::Firestore.new credentials: ENV["FIREBASE_CREDENTIALS_PATH"]
       doc_ref = firestore.doc("user_status/#{@student.id}")
       doc_ref.set(is_active: true)
 
