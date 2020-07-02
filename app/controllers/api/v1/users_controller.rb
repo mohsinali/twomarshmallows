@@ -82,7 +82,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   ## Description: If email is verified, reset password email with token is sent to user.
   #####################################################################
   def forgot_password
-    email = params[:email]
+    email = params[:email].downcase
     url = params[:callback_url]
     #  Check required params
     ## Email is required

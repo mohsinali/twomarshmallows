@@ -8,7 +8,7 @@ class Api::V1::StudentsController < Api::V1::ApiController
     return render json: { success: false, msg: 'Email is required.' } if params[:student][:email].blank?
     begin
       password = Devise.friendly_token.first(6)
-      @student = User.create!(email: params[:student][:email], password: password)
+      @student = User.create!(email: params[:student][:email].downcase, password: password)
       @student.add_role(:student)
 
       @student.create_profile(student_params, {teacher_id: @user.id})

@@ -9,7 +9,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
   # POST /resource/password
   def create
-    email = params[:user][:email]
+    email = params[:user][:email].downcase
     user  = User.find_by(email: email)
     if !user.nil? && user.has_role?(:superadmin)
       super
