@@ -3,7 +3,7 @@
   "version": "1.2.2",
   "private": true,
   "dependencies": {
-    "@claviska/jquery-minicolors": "~2.3.2",
+    "@claviska/jquery-minicolors": "~2.3.6",
     "animate.css": "~3.7.0",
     "blueimp-gallery": "~2.33.0",
     "bootstrap": "~4.1.1",
